@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ledger — Finance Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@300;400;500&family=Instrument+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/reset.css" />
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/charts.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+</head>
+<body>
+
+<!-- ─── SIDEBAR ──────────────────────────────────────────────── -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <span class="brand-mark">L</span>
+    <span class="brand-name">Ledger</span>
+  </div>
+
+  <nav class="sidebar-nav">
+    <button class="nav-item active" data-tab="dashboard">
+      <svg class="nav-icon" viewBox="0 0 20 20"><rect x="2" y="2" width="7" height="7" rx="1.5"/><rect x="11" y="2" width="7" height="7" rx="1.5"/><rect x="2" y="11" width="7" height="7" rx="1.5"/><rect x="11" y="11" width="7" height="7" rx="1.5"/></svg>
+      <span>Overview</span>
+    </button>
+    <button class="nav-item" data-tab="transactions">
+      <svg class="nav-icon" viewBox="0 0 20 20"><path d="M3 5h14M3 10h10M3 15h6" stroke-linecap="round"/><path d="M15 12l3 3-3 3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>Transactions</span>
+    </button>
+    <button class="nav-item" data-tab="insights">
+      <svg class="nav-icon" viewBox="0 0 20 20"><path d="M2 14l4-5 4 3 4-6 4 3" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+      <span>Insights</span>
+    </button>
+  </nav>
+
+  <div class="sidebar-footer">
+    <div class="role-widget">
+      <div class="role-label">Active Role</div>
+      <select id="roleSelect" class="role-select">
+        <option value="admin">Admin</option>
+        <option value="viewer">Viewer</option>
+      </select>
+      <div class="role-pill" id="rolePill">
+        <span class="role-dot"></span>
+        <span id="roleText">Admin</span>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<!-- ─── MOBILE TOP BAR ────────────────────────────────────────── -->
+<header class="mobile-header">
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <span class="mobile-brand">Ledger</span>
+  <div class="mobile-role" id="mobileRole">Admin</div>
+</header>
+
+<!-- ─── MAIN ─────────────────────────────────────────────────── -->
+<main class="main" id="main">
+
+  <!-- ── TOPBAR ── -->
+  <div class="topbar">
+    <div class="topbar-title">
+      <h1 id="pageTitle">Overview</h1>
+      <p id="pageSubtitle" class="topbar-sub">Your financial picture at a glance</p>
+    </div>
+    <div class="topbar-actions">
+      <div class="date-chip" id="dateChip"></div>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+        <svg id="themeIconSun" viewBox="0 0 20 20" class="theme-icon"><circle cx="10" cy="10" r="4"/><path d="M10 2v2M10 16v2M2 10h2M16 10h2M4.22 4.22l1.42 1.42M14.36 14.36l1.42 1.42M4.22 15.78l1.42-1.42M14.36 5.64l1.42-1.42" stroke-linecap="round"/></svg>
+        <svg id="themeIconMoon" viewBox="0 0 20 20" class="theme-icon hidden"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- ── DASHBOARD TAB ── -->
+  <div id="tab-dashboard" class="tab-content active">
+    <!-- Summary Cards -->
+    <div class="cards-grid" id="summaryCards">
+      <div class="summary-card card-balance anim-in" style="--delay:0">
+        <div class="card-eyebrow">Net Balance</div>
+        <div class="card-figure" id="cardBalance">—</div>
+        <div class="card-delta" id="cardBalanceDelta"></div>
+        <svg class="card-bg-glyph" viewBox="0 0 80 80" aria-hidden="true"><circle cx="60" cy="20" r="50" fill="currentColor" opacity="0.06"/></svg>
+      </div>
+      <div class="summary-card card-income anim-in" style="--delay:1">
+        <div class="card-eyebrow">Total Income</div>
+        <div class="card-figure" id="cardIncome">—</div>
+        <div class="card-delta" id="cardIncomeDelta"></div>
+        <svg class="card-bg-glyph" viewBox="0 0 80 80" aria-hidden="true"><circle cx="60" cy="20" r="50" fill="currentColor" opacity="0.06"/></svg>
+      </div>
+      <div class="summary-card card-expense anim-in" style="--delay:2">
+        <div class="card-eyebrow">Total Expenses</div>
+        <div class="card-figure" id="cardExpense">—</div>
+        <div class="card-delta" id="cardExpenseDelta"></div>
+        <svg class="card-bg-glyph" viewBox="0 0 80 80" aria-hidden="true"><circle cx="60" cy="20" r="50" fill="currentColor" opacity="0.06"/></svg>
+      </div>
+    </div>
+
+    <!-- Charts Row -->
+    <div class="charts-row anim-in" style="--delay:3">
+      <div class="panel chart-panel">
+        <div class="panel-head">
+          <div>
+            <h2 class="panel-title">Monthly Flow</h2>
+            <p class="panel-sub">Income vs Expenses — last 6 months</p>
+          </div>
+          <div class="chart-legend">
+            <span class="legend-item"><span class="legend-swatch income-swatch"></span>Income</span>
+            <span class="legend-item"><span class="legend-swatch expense-swatch"></span>Expenses</span>
+          </div>
+        </div>
+        <div class="bar-chart-wrap" id="barChart">
+          <div class="chart-empty hidden" id="barEmpty">No data yet</div>
+        </div>
+      </div>
+
+      <div class="panel donut-panel">
+        <div class="panel-head">
+          <div>
+            <h2 class="panel-title">Spending Mix</h2>
+            <p class="panel-sub">By category</p>
+          </div>
+        </div>
+        <div class="donut-wrap" id="donutWrap">
+          <div class="chart-empty hidden" id="donutEmpty">No expense data</div>
+          <svg id="donutSvg" class="donut-svg" viewBox="0 0 120 120"></svg>
+          <div class="donut-legend" id="donutLegend"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TRANSACTIONS TAB ── -->
+  <div id="tab-transactions" class="tab-content">
+    <div class="panel anim-in" style="--delay:0">
+      <div class="panel-head tx-head">
+        <div>
+          <h2 class="panel-title">All Transactions</h2>
+          <p class="panel-sub" id="txCount">— records</p>
+        </div>
+        <div class="tx-actions">
+          <button class="btn btn-outline" id="exportBtn">
+            <svg viewBox="0 0 16 16"><path d="M8 1v8M5 6l3 3 3-3" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 11v2a1 1 0 001 1h10a1 1 0 001-1v-2" stroke-linecap="round"/></svg>
+            Export CSV
+          </button>
+          <button class="btn btn-primary admin-only hidden" id="addTxBtn">
+            <svg viewBox="0 0 16 16"><path d="M8 2v12M2 8h12" stroke-linecap="round"/></svg>
+            Add Transaction
+          </button>
+        </div>
+      </div>
+
+      <!-- Filters -->
+      <div class="filter-bar">
+        <div class="search-wrap">
+          <svg class="search-icon" viewBox="0 0 16 16"><circle cx="6.5" cy="6.5" r="4"/><path d="M11 11l3 3" stroke-linecap="round"/></svg>
+          <input type="text" id="searchInput" class="filter-input search-input" placeholder="Search transactions…" />
+        </div>
+        <select id="filterCat" class="filter-input filter-select">
+          <option value="">All Categories</option>
+        </select>
+        <select id="filterType" class="filter-input filter-select">
+          <option value="">All Types</option>
+          <option value="income">Income</option>
+          <option value="expense">Expense</option>
+        </select>
+        <select id="filterMonth" class="filter-input filter-select">
+          <option value="">All Months</option>
+        </select>
+        <button class="btn btn-ghost" id="clearFilters">Clear</button>
+      </div>
+
+      <!-- Table -->
+      <div class="table-wrap">
+        <table class="tx-table" id="txTable">
+          <thead>
+            <tr>
+              <th data-sort="date" class="sortable sort-desc">Date <span class="sort-arrow">↓</span></th>
+              <th data-sort="desc">Description <span class="sort-arrow"></span></th>
+              <th data-sort="category">Category <span class="sort-arrow"></span></th>
+              <th data-sort="type">Type <span class="sort-arrow"></span></th>
+              <th data-sort="amount" class="sortable num-col">Amount <span class="sort-arrow"></span></th>
+              <th class="admin-only hidden actions-col">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="txBody"></tbody>
+        </table>
+        <div class="table-empty hidden" id="tableEmpty">
+          <div class="empty-icon">⟁</div>
+          <p>No transactions match your filters</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── INSIGHTS TAB ── -->
+  <div id="tab-insights" class="tab-content">
+    <div class="insights-grid anim-in" style="--delay:0" id="insightsGrid">
+    </div>
+    <div class="insights-bottom anim-in" style="--delay:2">
+      <div class="panel">
+        <div class="panel-head">
+          <div>
+            <h2 class="panel-title">Category Breakdown</h2>
+            <p class="panel-sub">Monthly expense by category</p>
+          </div>
+        </div>
+        <div id="catBreakdown" class="cat-breakdown"></div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- ─── MODAL ────────────────────────────────────────────────── -->
+<div class="modal-overlay hidden" id="modalOverlay">
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-header">
+      <h2 class="modal-title" id="modalTitle">Add Transaction</h2>
+      <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+    </div>
+    <form id="txForm" novalidate>
+      <div class="form-grid">
+        <div class="form-field">
+          <label class="form-label" for="fDesc">Description *</label>
+          <input id="fDesc" class="form-input" type="text" placeholder="e.g. Monthly Rent" required />
+          <span class="field-error" id="errDesc"></span>
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="fAmount">Amount (USD) *</label>
+          <input id="fAmount" class="form-input" type="number" min="0.01" step="0.01" placeholder="0.00" required />
+          <span class="field-error" id="errAmount"></span>
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="fDate">Date *</label>
+          <input id="fDate" class="form-input" type="date" required />
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="fType">Type *</label>
+          <select id="fType" class="form-input">
+            <option value="expense">Expense</option>
+            <option value="income">Income</option>
+          </select>
+        </div>
+        <div class="form-field form-field--full">
+          <label class="form-label" for="fCategory">Category *</label>
+          <select id="fCategory" class="form-input"></select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-ghost" id="cancelBtn">Cancel</button>
+        <button type="submit" class="btn btn-primary" id="submitBtn">Add Transaction</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ─── TOAST ────────────────────────────────────────────────── -->
+<div class="toast hidden" id="toast"></div>
+
+<!-- ─── SCRIPTS ──────────────────────────────────────────────── -->
+<script src="js/data.js"></script>
+<script src="js/state.js"></script>
+<script src="js/charts.js"></script>
+<script src="js/transactions.js"></script>
+<script src="js/insights.js"></script>
+<script src="js/modal.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+@media (max-width: 1100px) {
+  .charts-row { grid-template-columns: 1fr; }
+  .insights-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 860px) {
+  :root { --sidebar-w: 0px; }
+
+  .sidebar {
+    transform: translateX(-228px);
+    width: 228px;
+    top: 56px;
+  }
+  .sidebar.open { transform: translateX(0); }
+
+  .mobile-header { display: flex; }
+  .main { margin-left: 0; padding-top: 56px; }
+
+  .topbar { padding: 20px 16px 0; }
+  .tab-content { padding: 0 16px 24px; }
+
+  .cards-grid { grid-template-columns: 1fr; gap: 10px; }
+  .card-figure { font-size: 26px; }
+
+  .filter-bar { gap: 6px; }
+  .filter-select { flex: 1; min-width: 120px; }
+}
+
+@media (max-width: 600px) {
+  .insights-grid { grid-template-columns: 1fr; }
+  .tx-actions { width: 100%; justify-content: flex-end; }
+  .form-grid { grid-template-columns: 1fr; }
+  .form-field--full { grid-column: auto; }
+
+  .tx-table th:nth-child(3),
+  .tx-table td:nth-child(3) { display: none; } /* hide category on small */
+}
+
+@media (max-width: 420px) {
+  .topbar-title h1 { font-size: 22px; }
+  .date-chip { display: none; }
+}

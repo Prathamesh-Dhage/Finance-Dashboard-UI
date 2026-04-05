@@ -1,0 +1,80 @@
+:root {
+  /* ── Palette ── */
+  --cream:        #f7f3ec;
+  --cream-dark:   #ede8de;
+  --cream-darker: #e0d9cc;
+  --moss:         #3d5a47;
+  --moss-light:   #4e7260;
+  --moss-pale:    rgba(61,90,71,0.08);
+  --moss-border:  rgba(61,90,71,0.18);
+  --amber:        #c4843a;
+  --amber-pale:   rgba(196,132,58,0.12);
+  --rose:         #b85c5c;
+  --rose-pale:    rgba(184,92,92,0.10);
+  --sky:          #4a7fa5;
+  --sky-pale:     rgba(74,127,165,0.10);
+  --sage:         #6a8f72;
+  --ink:          #1c2a22;
+  --ink-mid:      #3a4e42;
+  --ink-light:    #6b7f72;
+  --ink-faint:    #a8b9ae;
+
+  /* ── Semantic ── */
+  --bg:           var(--cream);
+  --bg-subtle:    var(--cream-dark);
+  --bg-raised:    #ffffff;
+  --border:       var(--moss-border);
+  --border-faint: rgba(61,90,71,0.09);
+  --text-primary: var(--ink);
+  --text-secondary: var(--ink-mid);
+  --text-muted:   var(--ink-light);
+  --text-faint:   var(--ink-faint);
+  --accent:       var(--moss);
+  --accent-hover: var(--moss-light);
+  --income-color: var(--moss);
+  --expense-color: var(--rose);
+  --shadow-sm:    0 1px 3px rgba(28,42,34,0.06), 0 1px 2px rgba(28,42,34,0.04);
+  --shadow-md:    0 4px 12px rgba(28,42,34,0.08), 0 2px 6px rgba(28,42,34,0.05);
+  --shadow-lg:    0 12px 40px rgba(28,42,34,0.14), 0 4px 12px rgba(28,42,34,0.08);
+  --r-sm:         6px;
+  --r-md:         10px;
+  --r-lg:         16px;
+  --r-xl:         22px;
+
+  /* ── Typography ── */
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body:    'Instrument Sans', system-ui, sans-serif;
+  --font-mono:    'IBM Plex Mono', 'Courier New', monospace;
+
+  /* ── Sidebar ── */
+  --sidebar-w:    228px;
+  --sidebar-bg:   var(--ink);
+  --sidebar-text: rgba(247,243,236,0.75);
+  --sidebar-active: rgba(247,243,236,0.12);
+  --sidebar-active-text: var(--cream);
+}
+
+/* ── Dark Mode ── */
+[data-theme="dark"] {
+  --bg:           #141b17;
+  --bg-subtle:    #1a2320;
+  --bg-raised:    #1f2d27;
+  --border:       rgba(116,163,128,0.15);
+  --border-faint: rgba(116,163,128,0.08);
+  --text-primary: #e8f0ea;
+  --text-secondary: #b8ccbe;
+  --text-muted:   #7a9981;
+  --text-faint:   #4a6652;
+  --moss:         #74a380;
+  --moss-light:   #88b893;
+  --moss-pale:    rgba(116,163,128,0.10);
+  --moss-border:  rgba(116,163,128,0.18);
+  --amber:        #d4934a;
+  --amber-pale:   rgba(212,147,74,0.12);
+  --rose:         #cc7070;
+  --rose-pale:    rgba(204,112,112,0.12);
+  --shadow-sm:    0 1px 3px rgba(0,0,0,0.3);
+  --shadow-md:    0 4px 12px rgba(0,0,0,0.4);
+  --shadow-lg:    0 12px 40px rgba(0,0,0,0.5);
+  --sidebar-bg:   #0f1712;
+}
